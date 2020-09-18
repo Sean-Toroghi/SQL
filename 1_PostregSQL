@@ -1,0 +1,372 @@
+-- task 1.1
+SELECT 
+	*
+FROM
+	staff
+LIMIT 10
+
+-- task 1.2
+-- count # of employees
+SELECT 
+	COUNT(*)
+FROM
+	staff
+    
+-- count # of employees by gender
+SELECT 
+	gender, COUNT(*)
+FROM
+	staff
+GROUP BY
+	gender
+
+--task 1.3
+SELECT 
+	department, gender, 
+    MAX(salary) as Highest_Salary, MIN(salary) as Lowest_salary, 
+	(MAX(salary) - MIN(salary)) as Salary_range
+FROM
+	staff
+GROUP BY
+	department, gender
+ORDER BY 
+	Salary_range DESC
+
+
+--task 1.4
+SELECT 
+	 department, gender, 
+	 SUM(salary) as total_salary,
+	 COUNT(gender) as no_employees,
+	 ROUND(AVG(salary),0) as avg_salary,  --straight calculation
+	 (SUM(salary)/COUNT(gender)) as average_salary, 
+	 ROUND(VAR_POP(salary),0) as variance_salary,
+	 ROUND(STDDEV_POP(salary),2) as StdDev_salray
+FROM
+	staff
+GROUP BY
+	department, gender
+ORDER BY 
+	department
+  
+--task 1.5
+SELECT
+    department, gender,
+    COUNT(salary) as employee_salary_higher_100k,
+    ROUND(AVG(salary),0) as average_paid_bracket_100k_plus
+FROM
+    staff
+WHERE 
+    salary >= 100000
+    AND
+    department LIKE 'B%'
+GROUP BY 
+    department, gender
+ORDER BY
+    department
+    
+ --task 2.1
+SELECT DISTINCT
+	LOWER(department)
+FROM 
+	staff
+  
+--task 2.2
+SELECT DISTINCT
+	TRIM(job_title) || '-' || TRIM(UPPER(department)) job_department, 
+    salary
+FROM 
+	staff
+ORDER BY 
+	salary DESC
+LIMIT 10
+
+--task 2.3
+SELECT 
+	TRIM(job_title),
+	(job_title LIKE '%Assistant%') as is_assistant
+FROM 
+	staff
+ORDER BY 
+	is_assistant DESC
+  
+--task 2.4
+SELECT 
+	salary,
+	SUBSTRING(job_title FROM 10) as assistant_category,
+	department
+FROM 
+	staff
+WHERE
+	job_title LIKE 'Assistant%'
+ORDER BY 
+	department
+  
+--task 2.5
+SELECT 
+	OVERLAY(job_title PLACING 'Asst.' FROM 1 FOR 9) as job,
+	department
+FROM 
+	staff
+WHERE 
+	job_title LIKE 'Assistant%'
+ORDER BY 
+	department
+  
+-- task 2.6
+SELECT 
+	job_title,
+	ROUND(AVG(salary)) as avg_salary
+FROM 
+	staff
+WHERE 
+	job_title SIMILAR TO '%Assistant%(I|I_)'
+GROUP BY
+	job_title
+ORDER BY 
+	job_title
+  
+-- task 2.7
+SELECT
+	department,
+	TRUNC(AVG(salary),2) as avg_salary
+FROM
+	staff
+GROUP BY 
+	department
+ORDER BY 
+	department
+  
+-- task 3.1
+SELECT
+	s1.job_title,
+	s1.salary,
+	s1.department,
+	(SELECT
+	 	ROUND(AVG(salary)) as avg_salary
+	 FROM
+	 	staff s2
+	 WHERE
+	 	s1.department = s2.department
+	)
+FROM
+	staff s1
+ORDER BY 
+	department, salary DESC
+  
+-- task 3.2
+-- option 1: straight forward
+SELECT
+	ROUND(AVG(salary)) avg_sal_above_100k,
+	department
+FROM
+	staff s2
+WHERE
+	salary > 100000
+GROUP BY 
+	department   
+--option 2: employing sub-query
+SELECT
+	ROUND(AVG(s1.salary)) avg_sal_above_100k,
+	s1.department
+FROM
+	(SELECT
+		salary,
+		department
+	FROM
+		staff
+	WHERE 
+		salary > 100000) s1
+GROUP BY 
+	department
+  
+-- task 3.3
+-- the first row is the answer
+SELECT 
+	MAX(salary) as max_salary,
+	department
+FROM
+	staff
+GROUP BY 
+	department
+ORDER BY
+	max_salary DESC
+    
+    
+-- however, to return just one row (answer): employ sub-query
+SELECT
+	s2.department,
+	s2.salary
+FROM
+	staff s2
+WHERE
+	s2.salary = (SELECT 
+					MAX(s1.salary)
+				FROM
+					staff s1)
+          
+-- task 3.4
+SELECT
+	s.last_name,
+	s.department,
+	cd.company_division
+FROM
+	staff s LEFT JOIN company_divisions cd
+ON
+	s.department = cd.department
+WHERE
+	company_division IS NULL
+  
+-- task 3.5
+CREATE VIEW staff_region_division AS
+	SELECT
+		s.* , cd.company_division, cr.company_regions
+	FROM
+		staff s
+	LEFT JOIN company_divisions cd ON 
+		s.department = cd.department 
+	LEFT JOIN company_regions cr ON
+		s.region_id = cr.region_id
+        
+-- check if the view is created correctly
+SELECT 
+    COUNT (*)
+FROM
+    staff_region_division
+-- count the # of employees in each region
+SELECT 
+    COUNT(*), company_regions
+FROM
+    staff_region_division
+GROUP BY 
+    company_regions 
+    
+-- task 3.6
+SELECT 
+    COUNT(*), company_regions, company_division
+FROM
+    staff_region_division
+GROUP BY 
+    GROUPING SETS (company_regions , company_division)
+ORDER BY
+	company_regions , company_division
+  
+-- task 3.7
+-- create a view to make a code cleaner
+CREATE OR REPLACE VIEW staff_region AS
+    SELECT
+        s.*, cr.country, cr.company_regions
+    FROM 
+        staff s
+    LEFT JOIN company_regions cr
+        ON 
+            s.region_id = cr.region_id  
+-- check if the view is created correctly
+SELECT 
+    COUNT (*)
+FROM
+    staff_region
+-- retrieve the number of employees in each region, and country
+SELECT 
+    company_regions, country, COUNT(*)
+FROM
+    staff_region
+GROUP BY
+    ROLLUP (country, company_regions)
+ORDER BY 
+	country, company_regions
+ 
+-- task 3.8
+SELECT
+    company_division, company_regions, COUNT(*)
+FROM 
+    staff_region_division
+GROUP BY
+    CUBE(company_division, company_regions)
+ORDER BY
+	company_division, company_regions
+  
+-- task 3.9
+-- task 1
+SELECT DISTINCT
+	department,
+	job_title,
+	salary
+FROM 
+	staff
+ORDER BY
+	salary DESC
+FETCH FIRST
+	10 ROWS ONLY
+    
+-- task 2
+SELECT DISTINCT
+	company_division as division,
+	COUNT(*) as count_divisions
+FROM 
+	staff s
+LEFT JOIN company_divisions cd
+	ON
+		s.department = cd.department
+GROUP BY
+	division
+ORDER BY
+	COUNT(*) DESC
+FETCH FIRST
+	5 ROWS ONLY
+  
+-- task 4.1
+SELECT DISTINCT
+	department,
+	MAX(salary) OVER (PARTITION BY department) as max_salary,
+	MIN(salary) OVER (PARTITION BY department) as min_salary
+FROM 
+	staff s
+ORDER BY
+	department
+  
+-- task 4.2
+SELECT DISTINCT
+	department,
+	FIRST_VALUE(salary) OVER (PARTITION BY department ORDER BY salary DESC) as max_salary,
+	FIRST_VALUE(salary) OVER (PARTITION BY department ORDER BY salary ASC) as min_salary
+FROM 
+	staff
+ORDER BY
+	department
+  
+-- task 4.3 
+SELECT DISTINCT
+	s.salary,
+	s.department,
+	cr.company_regions,
+	cr.country,
+	rank() OVER (PARTITION BY cr.country ORDER BY salary DESC)
+FROM 
+	staff s
+LEFT JOIN company_regions cr
+	ON s.region_id = cr.region_id
+ORDER BY 
+	salary DESC
+LIMIT 10
+
+-- task 4.4
+SELECT DISTINCT
+	salary as top_salary,
+	LEAD(salary) OVER (PARTITION BY department ORDER BY salary DESC) as second_top_salary,
+	department
+FROM 
+	staff 
+ORDER BY 
+	salary DESC
+LIMIT 10
+
+-- task 4.5
+SELECT DISTINCT
+	salary,
+	department,
+	NTILE(10) OVER (PARTITION BY department ORDER BY salary DESC) as top_10_salary
+FROM 
+	staff 
+ORDER BY
+	top_10_salary, department
