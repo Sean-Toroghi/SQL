@@ -1,7 +1,7 @@
 
 <h1> SQL quick reference</h1>
 
-__<a name = 'up'>Table of contents</a>__
+<a name = 'up'>Table of contents</a>
 - [Create, update, and modify dataset](#cumd)
 - [Retrive/analyze data](#rad)
 
