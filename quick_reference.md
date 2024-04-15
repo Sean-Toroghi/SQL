@@ -5,6 +5,9 @@ __Table of contents__
 - [Create, update, and modify dataset](#cumd)
 - [Retrive/analyze data](#rad)
 
-<a name = 'cumd'>Create, update, and modify dataset</a>
+# <a name = 'cumd'>Create, update, and modify dataset</a>
 
-Retrive/analyze data
+
+---
+
+# <a name = 'rad'>Retrive/analyze data</a>
