@@ -5,7 +5,7 @@ Table of content:
 
 ---
 
-## <a id = 'subquery'> Subquery</a>
+## <a name = 'subquery'> Subquery</a>
 
 Problem 1: Retrieve orders whose order total is higher than the average total price of all other orders. (Table: OnlineRetailSales)
 
@@ -72,7 +72,7 @@ WHERE [In Stock] <= (SELECT AVG([In Stock]) FROM [Red30Tech].[dbo].[Inventory$])
 
 ---
 
-__Common table expression__
+## <a name = 'cte>Common table expression </a>
 
 Problem 1:  Retrieve orders whose order total is higher than the average total price of all other orders. (Table: OnlineRetailSales)
 
@@ -145,7 +145,7 @@ WHERE [In Stock] <= [Avg_stock]
 ```
 
 ---
-__Window function (ROW_NUMBER, LAG, LEAD, RANK, DENSE_RANK)__
+## <a name='window'> Window function (ROW_NUMBER, LAG, LEAD, RANK, DENSE_RANK) </a>
 
 Problem 1:  Retrieve the most recent order by customers from OnlineRetailSale$ table.
 
