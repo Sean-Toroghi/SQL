@@ -1,11 +1,11 @@
 Table of content:
-- subquery 
-- CTE
-- WINDOW function
+- [subquery](subquery) 
+- [CTE](cte)
+- [WINDOW function](window)
 
 ---
 
-__Subquery__
+## <a id = 'subquery'> Subquery</a>
 
 Problem 1: Retrieve orders whose order total is higher than the average total price of all other orders. (Table: OnlineRetailSales)
 
