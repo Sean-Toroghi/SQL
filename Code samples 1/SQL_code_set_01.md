@@ -1,7 +1,7 @@
 Table of content:
-- [subquery](subquery) 
-- [CTE](cte)
-- [WINDOW function](window)
+- [subquery](#subquery) 
+- [CTE](#cte)
+- [WINDOW function](#window)
 
 ---
 
