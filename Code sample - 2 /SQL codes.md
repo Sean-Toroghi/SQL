@@ -9,8 +9,13 @@ __SQL engine__: SQLiteStudio
 __Datasets__
 Two datasets are used im this coding exercice:
 - Restaurant dataset: consists of 8 tables
-- Library dataset: 
+- Library dataset:
+
+  
 ![restaurant-ERD](https://github.com/Sean-Toroghi/SQL/assets/50586266/989384e4-278b-4721-bf34-0fa1a263ab57)
+
+
+
 
   
 
