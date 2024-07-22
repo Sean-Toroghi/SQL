@@ -39,7 +39,7 @@ AS $$
   else:
     return False
       
-  $$LANGUAGE plpython3u;
+  $$LANGUAGE plpython3u IMMUTABLE;
 ```
 Approach 2 - SQL
 ```sql
@@ -47,7 +47,7 @@ CREATE FUNCTION check_palindrome(x text) return boolean
 AS $$
   SELECT REVERSE(x) == x
       
-  $$LANGUAGE SQL;
+  $$LANGUAGE SQL IMMUTABLE;
 ```
 
 ## Function overloading
