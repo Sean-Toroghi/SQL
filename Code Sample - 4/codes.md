@@ -1,7 +1,8 @@
 <h1> Advance SQL</h1>
+
 References
 - PostSQL
-- [link](https://www.linkedin.com/learning/advanced-sql-for-data-scientists-13972889)
+- [link](https://www.linkedin.com/learning/advanced-sql-for-data-scientists-13972889/)
 
 # Customized function
 
