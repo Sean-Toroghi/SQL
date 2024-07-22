@@ -31,7 +31,7 @@ __Example__: create a function that get a string and returns True if the string 
 
 Approach 1 - python
 ```sql
-CREATE FUNCTION palindrome(x text) return boolean
+CREATE FUNCTION check_palindrome(x text) return boolean
 AS $$
   if len(x) == 0 or len(x) == 1: return True
   elif len(x) == 2 and (x[0] == x[1]): return True
@@ -43,7 +43,7 @@ AS $$
 ```
 Approach 2 - SQL
 ```sql
-CREATE FUNCTION palindrome(x text) return boolean
+CREATE FUNCTION check_palindrome(x text) return boolean
 AS $$
   SELECT REVERSE(x) == x
       
