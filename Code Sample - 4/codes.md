@@ -46,3 +46,34 @@ AS
   SELECT ((2 * x::numeric * y::numeric)/(x:numeric + y::numeric) :: numeric)
   $$ LANGUAGE SQL;
 ```
+
+## Function volatility
+A functiuon has three classifications: `VOLATILE` (DEFAULT), `STABLE`, AND `IMMUTABLE`, that can be used to optimize it. 
+- in `VOLATILE` mode the function is evaluated each time it is run. This modeallows the function to have any type of operation, iuncluding changing the database. Ther eis no optimization assumption for this mode.
+- in `STABLE` mode we cannot modify database. It guarantees to return the same results, given the same arguments for all rows within a single statement. Based on this guarantee, we can employ some optimization to perform this type of function
+- in `IMMUTABLE` mode, the function cannot modify athe database, and guarantees to return the same results given the same arguemnts in all cases (not single statement). Also optimization can be applied to this type of functions.
+
+__Note__: any function with side effect (such as changing dataset) should be `VOLATILE`. Also any function that use a function in it that can change vbalue in a query, also needs to be `VOLATILE`.
+
+__Example__ create IMMUTABLE function that computes harmonic meean of two input variables.
+```SQL
+---define harmonic_mean function
+CREATE FUNCTION harmonic_mean (x numeric, y numeric) RETURN numeric
+AS
+  $$
+SELECT ((2*x*y)/(x+y) :: numeric)
+
+$$ LANGUAGE SQL IMMUTABLE;
+```
+
+
+
+
+
+
+
+
+
+
+
+
