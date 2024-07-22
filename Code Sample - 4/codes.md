@@ -66,7 +66,21 @@ SELECT ((2*x*y)/(x+y) :: numeric)
 $$ LANGUAGE SQL IMMUTABLE;
 ```
 
+## Create Python function in SQL!
+WE can define a Python function inside PostgreSQL by using PL/Python language (a Postgres externtion): 
+- first create extension `CREATE EXTENTION  pypython3u` (requires sueoruser privilege: `CREATE USER pPostgres WITH superuser`)
+- create function similar to creating a customized function, by specify the python language at the end.
 
+__Example__ create a customized function in python to return the larger number among two inputs.
+```sql
+CREATE FUNCTION larger_value (x integer, y integer) RETURN integer
+AS $$
+  if x> y:
+    return x
+  else:
+    return y
+  $$ LANGUAGE pypython3u;
+```
 
 
 
