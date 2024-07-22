@@ -27,6 +27,29 @@ $$ LANGUAGE SQL;
 harmonic_mean(22, 33)
 ```
 
+__Example__: create a function that get a string and returns True if the string is palindrome
+
+Approach 1 - python
+```sql
+CREATE FUNCTION palindrome(x text) return boolean
+AS $$
+  if len(x) == 0 or len(x) == 1: return True
+  elif len(x) == 2 and (x[0] == x[1]): return True
+  elif x == x[::-1]: return True
+  else:
+    return False
+      
+  $$LANGUAGE plpython3u;
+```
+Approach 2 - SQL
+```sql
+CREATE FUNCTION palindrome(x text) return boolean
+AS $$
+  SELECT REVERSE(x) == x
+      
+  $$LANGUAGE SQL;
+```
+
 ## Function overloading
 A customized function could be defined multiple times, with different set of parameters. One example is when we want to define a function, but not sure if the datatyypes is consistent. 
 
