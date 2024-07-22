@@ -7,7 +7,7 @@ References
 # Customized function
 
 ## user-defined functions
-Beyound pre-defined funtions in SQL (e.g. SELECT, UPDATE, DELETE), users can define new functions (such as creating a function to roleback or commit). There are couple of ways to define customized function is SQL
+Beyond pre-defined functions in SQL (e.g. SELECT, UPDATE, DELETE), users can define new functions (such as creating a function to roleback or commit). There are couple of ways to define customized function is SQL
 1. employ `CREATE FUNCTION` statement
 2. employ `CREATE OR REPLACE FUNCTION `, which first check if a function exist it will update the definition, and if not exist it creates it
 3. employ `DROP FUNCITON` and `CREATE FUNCTON`, here we first delete an existing function and create new function (that has a  new identifier)
@@ -52,7 +52,7 @@ AS $$
 ```
 
 ## Function overloading
-A customized function could be defined multiple times, with different set of parameters. One example is when we want to define a function, but not sure if the datatyypes is consistent. 
+A customized function could be defined multiple times, with different set of parameters. One example is when we want to define a function, but not sure if the data types is consistent. 
 
 __Example__ define a function that computes harmonic mean of two variables. The data type for the variables could be either numeric or string
 ```sql
@@ -73,13 +73,13 @@ AS
 
 ## Function volatility
 A functiuon has three classifications: `VOLATILE` (DEFAULT), `STABLE`, AND `IMMUTABLE`, that can be used to optimize it. 
-- in `VOLATILE` mode the function is evaluated each time it is run. This modeallows the function to have any type of operation, iuncluding changing the database. Ther eis no optimization assumption for this mode.
+- in `VOLATILE` mode the function is evaluated each time it is run. This mode allows the function to have any type of operation, including changing the database. There is no optimization assumption for this mode.
 - in `STABLE` mode we cannot modify database. It guarantees to return the same results, given the same arguments for all rows within a single statement. Based on this guarantee, we can employ some optimization to perform this type of function
-- in `IMMUTABLE` mode, the function cannot modify athe database, and guarantees to return the same results given the same arguemnts in all cases (not single statement). Also optimization can be applied to this type of functions.
+- in `IMMUTABLE` mode, the function cannot modify the database, and guarantees to return the same results given the same arguments in all cases (not single statement). Also, optimization can be applied to this type of functions.
 
-__Note__: any function with side effect (such as changing dataset) should be `VOLATILE`. Also any function that use a function in it that can change vbalue in a query, also needs to be `VOLATILE`.
+__Note__: any function with side effect (such as changing dataset) should be `VOLATILE`. Also any function that use a function in it that can change value in a query, also needs to be `VOLATILE`.
 
-__Example__ create IMMUTABLE function that computes harmonic meean of two input variables.
+__Example__ create IMMUTABLE function that computes harmonic mean of two input variables.
 ```SQL
 ---define harmonic_mean function
 CREATE FUNCTION harmonic_mean (x numeric, y numeric) RETURN numeric
@@ -91,8 +91,8 @@ $$ LANGUAGE SQL IMMUTABLE;
 ```
 
 ## Create Python function in SQL!
-WE can define a Python function inside PostgreSQL by using PL/Python language (a Postgres externtion): 
-- first create extension `CREATE EXTENTION  pypython3u` (requires sueoruser privilege: `CREATE USER pPostgres WITH superuser`)
+WE can define a Python function inside PostgreSQL by using PL/Python language (a Postgres extension): 
+- first create extension `CREATE EXTENTION  pypython3u` (requires superuser privilege: `CREATE USER pPostgres WITH superuser`)
 - create function similar to creating a customized function, by specify the python language at the end.
 
 __Example__ create a customized function in python to return the larger number among two inputs.
@@ -106,7 +106,17 @@ AS $$
   $$ LANGUAGE pypython3u;
 ```
 
+# Special purpose functionality
 
+## Fe=derated queries
+
+## Bloom filters
+
+## Hstore for key,value pairs
+
+## JSON - semi-structured data
+
+## Hierarchical data and Itrees
 
 
 
