@@ -105,10 +105,17 @@ AS $$
     return y
   $$ LANGUAGE pypython3u;
 ```
+---
 
 # Special purpose functionality
 
-## Fe=derated queries
+## Federated queries
+This is a feature in SQL that allows to access data that is not part of the database. Theaccess is made through SQL-MED (management of external data). 
+Among options in SQL-MED, two important ones are foriegn-data wrapper and datalinks. With foreign-data wrapper we can access and view data outside the database. datalinks provide database functinality over those external data. 
+
+__Steps__
+1. create an externsion: `CREATE EXTERNTION <extension_name>`
+
 
 ## Bloom filters
 
