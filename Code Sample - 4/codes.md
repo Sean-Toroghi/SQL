@@ -113,11 +113,32 @@ AS $$
 This is a feature in SQL that allows to access data that is not part of the database. Theaccess is made through SQL-MED (management of external data). 
 Among options in SQL-MED, two important ones are foriegn-data wrapper and datalinks. With foreign-data wrapper we can access and view data outside the database. datalinks provide database functinality over those external data. 
 
-__Steps__
+__Applications__
 1. create an externsion: `CREATE EXTERNTION <extension_name>`
+2. create server
+3. map users
+4. map schema (optional)
+5. create foreign table
 
 
-## Bloom filters
+## Bloom filter index
+A Postgres extension that is useful for queries that requires to filter on many combinations of data over a large table with many features.
+
+Notes
+- Bloom filter only supports equality operator on int4 and text data types.
+- For applications that require support for equality, inequality, and range, we can employ _B-tree_. It is also faster than Bloom filter, but requires more space.
+
+__Example__
+```sql
+CREATE EXTERNSION <bloom_filter_name>
+CREATE INDEX <custom_name_index> ON <table_name>
+  USING <bloom_filter_name> (<col_1>, <col_2>, ...)
+  WITH (<condition clause>)
+```
+
+
+
+
 
 ## Hstore for key,value pairs
 
