@@ -29,6 +29,7 @@ Every SQL query is processed in the following order:
 
 # <a name = 'window'>Window function</a>
 
+
 Window function general format:
 ```sql
 Function (expressions)
@@ -56,9 +57,11 @@ Function (expressions)
 __OVER clause__
 
 It defines the window over the dataset, for the _function_ to be applied to. 
+- PARTITION BY is the second filter option in the window function.
+
 
 ## Window function vs sub-querry
-In many cases subquery and window function can be used interchagibly. Following examples show the use of the two methods, to perform the same task. The first example, just requires employ an aggregate function. The second example, adds a condition. With the subquery, we require to duplicate the predicatess (using it in both main and sub-queries). However, with window function, we can just use the condition on the main query. 
+In many cases subquery and window function can be used interchagibly. Following examples show the use of the two methods, to perform the same task. The first example, just requires employ an aggregate function. The second example, adds a condition. With the subquery, we require to duplicate the predicatess (using it in both main and sub-queries). However, with window function, we can just use the condition on the main query.  This makes the window function much more efficient.
 
 __Example 1__: the goal is to add total number of product to the query. 
 ```sql
@@ -66,6 +69,7 @@ __Example 1__: the goal is to add total number of product to the query.
 SELECT
   Product_name,
   Product_price,
+  Product_category,
   Product_barcode,
   Inverntory_date,
   (SELECT COUNT (*) FROM product_info) AS count_all_products
@@ -77,6 +81,7 @@ ORDER BY Product_name
 SELECT
   Product_name,
   Product_price,
+  Product_category,
   Product_barcode,
   Inverntory_date,
   COUNT (*)
@@ -93,6 +98,7 @@ __Example 1__: the goal is to add total number of product to the query, for prod
 SELECT
   Product_name,
   Product_price,
+  Product_category,
   Product_barcode,
   Inverntory_date,
   (SELECT COUNT (*) FROM product_info WHERE Inverntory_date <= '2024-01-01') AS count_all_products
@@ -105,6 +111,7 @@ ORDER BY Product_name
 SELECT
   Product_name,
   Product_price,
+  Product_category,
   Product_barcode,
   Inverntory_date,
   COUNT (*)
@@ -116,6 +123,26 @@ WHERE Inverntory_date <= '2024-01-01'
 ORDER BY Product_name
 ```
 
+## PARTITIN BY
+This is the second filter option in the window function. This method divides the dtaset into parts and limits the function's visibility to rows a portions of dataset that satisfies the condition in PARTITION BY clause. 
+
+__Example__: given a dataset for an inventory, retrieve number of items in each category entered the enventory prior to '2024-01-01'. Here the aggregate function requires to be applied to each 'Product_category_ seperately.
+
+```sql
+SELECT
+  Product_name,
+  Product_price,
+  Product_category,
+  Product_barcode,
+  Inverntory_date,
+  COUNT (*)
+    OVER (PARTITION BY Product_category)
+      AS count_all_products
+FROM
+  product_info
+WHERE Inverntory_date <= '2024-01-01'
+ORDER BY Product_name
+```
 
 While for a simple task, window function and subquery are both can be used, subquery will become complicated as the task gets more 
 
