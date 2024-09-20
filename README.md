@@ -29,6 +29,10 @@ Every SQL query is processed in the following order:
 
 # <a name = 'window'>Window function</a>
 
+Expressions using window functions have access to values from other rows.
+Without window functions, this can only be achieved via subqueries.
+
+Window functions can only be used in SELECT and ORDER BY clauses exclusively, after the query's data set is finalized.
 
 Window function general format:
 ```sql
@@ -46,10 +50,12 @@ __Function__
 
 __FILTER__
 
-Filter limits the scope that _function_ lookthrough over the provided _window_ with logical predicates. Here the FILTER performing only inside the _Window function_ and has no effect on the syntax outside the window function.
+Filter limits the scope that _function_ lookthrough over the provided _window_ with logical predicates. Here the FILTER performing only inside the _Window function_ and (unlike WHERE clasue) it has no effect on the syntax outside the window function.
 
-If we want to apply the function to the whole dataset, the syntax will be as follow:
+A blank OVER () clause provides access to the query’s entire data set. All the other subclauses within the OVER clause limit the window to only a subset of the query’s data set.
+
 ```sql
+--- Apply window function to the entire dataset
 Function (expressions)
   OVER ()
 ```
@@ -58,6 +64,7 @@ __OVER clause__
 
 It defines the window over the dataset, for the _function_ to be applied to. 
 - PARTITION BY is the second filter option in the window function.
+- ORDER BY clause in window function perform different task based on the function used. For some functions it is used to limit visibility and for other it define how to evaluate the function.
 
 
 ## Window function vs sub-querry
@@ -126,7 +133,9 @@ ORDER BY Product_name
 ## PARTITIN BY
 This is the second filter option in the window function. This method divides the dtaset into parts and limits the function's visibility to rows a portions of dataset that satisfies the condition in PARTITION BY clause. 
 
-__Example__: given a dataset for an inventory, retrieve number of items in each category entered the enventory prior to '2024-01-01'. Here the aggregate function requires to be applied to each 'Product_category_ seperately.
+__Example__: given a dataset for an inventory, retrieve number of items in each category entered the enventory prior to '2024-01-01'. Here the aggregate function requires to be applied to each 'Product_category' seperately.
+
+If using subquery, the syntax becomes mroe complecated. We requrie to use two aliaces for the table (one inside the subquery, and one for main query) and use a WHERE clause inside subquery to apply the partitioning filer.
 
 ```sql
 SELECT
@@ -142,9 +151,34 @@ FROM
   product_info
 WHERE Inverntory_date <= '2024-01-01'
 ORDER BY Product_name
-```
 
-While for a simple task, window function and subquery are both can be used, subquery will become complicated as the task gets more 
+
+---Employ subquery to perform the same task. 
+SELECT
+  p1.Product_name,
+  p1.Product_price,
+  p1.Product_category,
+  p1.Product_barcode,
+  p1.Inverntory_date,
+  (SELECT COUNT (*)
+    FROM product_info as p2
+    WHERE (p2.Inverntory_date <= '2024-01-01')
+          AND
+          (p2.Product_category = p1.Product_category)
+    ) AS count_all_products
+FROM
+  product_info as p1
+WHERE Inverntory_date <= '2024-01-01'
+ORDER BY p1.Product_name
+```
+ 
+## ORDER BY clasue
+
+In window function, ORDER BY clause performs task depending on the function:
+- For order agnsotic functions, _aggregate and frame offset_, the ORDER BY limits the row visible to the function.
+- For _rank, row offset, and distribution_ window functions, the ORDER BY defines how the function is evaluated.
+
+
 
 [UP](#up)
 
