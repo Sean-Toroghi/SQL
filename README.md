@@ -86,7 +86,7 @@ FROM
   product_info
 ORDER BY Product_name
 ```
-
+ 
 __Example 1__: the goal is to add total number of product to the query, for products added to the inventory before '2024-01-01'.
 ```sql
 --- Employ subquery
