@@ -31,7 +31,7 @@ Every SQL query is processed in the following order:
 
 Window function general format:
 ```sql
-Function (expression)
+Function (expressions)
 FILTER (WHERE predicatess)
   OVER (
         [PARTITION BY expressions]
@@ -41,9 +41,51 @@ FILTER (WHERE predicatess)
       )
 ```
 
+__Function__
 
+__FILTER__
 
+Filter limits the scope that _function_ lookthrough over the provided _window_ with logical predicates. Here the FILTER performing only inside the _Window function_ and has no effect on the syntax outside the window function.
 
+If we want to apply the function to the whole dataset, the syntax will be as follow:
+```sql
+Function (expressions)
+  OVER ()
+```
+
+__OVER clause__
+
+It defines the window over the dataset, for the _function_ to be applied to. 
+
+## Window function vs sub-querry
+In many cases subquery and window function can be used interchagibly. Following example shows the use of the two methods, to perform the same task.
+
+__Example__: the goal is to add total number of product to the query. 
+```sql
+--- Employ subquery
+SELECT
+  Product_name,
+  Product_price,
+  Product_barcode,
+  (SELECT COUNT (*) FROM product_info) AS count_all_products
+FROM
+  product_info
+ORDER BY Product_name
+
+---Window function
+SELECT
+  Product_name,
+  Product_price,
+  Product_barcode,
+  COUNT (*)
+    OVER ()
+      AS count_all_products
+FROM
+  product_info
+ORDER BY Product_name
+```
+
+While for a simple task, window function and subquery are both can be used, subquery will become complicated as the task gets more 
 
 [UP](#up)
 
