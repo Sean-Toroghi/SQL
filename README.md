@@ -58,15 +58,16 @@ __OVER clause__
 It defines the window over the dataset, for the _function_ to be applied to. 
 
 ## Window function vs sub-querry
-In many cases subquery and window function can be used interchagibly. Following example shows the use of the two methods, to perform the same task.
+In many cases subquery and window function can be used interchagibly. Following examples show the use of the two methods, to perform the same task. The first example, just requires employ an aggregate function. The second example, adds a condition. With the subquery, we require to duplicate the predicatess (using it in both main and sub-queries). However, with window function, we can just use the condition on the main query. 
 
-__Example__: the goal is to add total number of product to the query. 
+__Example 1__: the goal is to add total number of product to the query. 
 ```sql
 --- Employ subquery
 SELECT
   Product_name,
   Product_price,
   Product_barcode,
+  Inverntory_date,
   (SELECT COUNT (*) FROM product_info) AS count_all_products
 FROM
   product_info
@@ -77,6 +78,7 @@ SELECT
   Product_name,
   Product_price,
   Product_barcode,
+  Inverntory_date,
   COUNT (*)
     OVER ()
       AS count_all_products
@@ -84,6 +86,36 @@ FROM
   product_info
 ORDER BY Product_name
 ```
+
+__Example 1__: the goal is to add total number of product to the query, for products added to the inventory before '2024-01-01'.
+```sql
+--- Employ subquery
+SELECT
+  Product_name,
+  Product_price,
+  Product_barcode,
+  Inverntory_date,
+  (SELECT COUNT (*) FROM product_info WHERE Inverntory_date <= '2024-01-01') AS count_all_products
+FROM
+  product_info
+WHERE Inverntory_date <= '2024-01-01'
+ORDER BY Product_name
+
+---Window function
+SELECT
+  Product_name,
+  Product_price,
+  Product_barcode,
+  Inverntory_date,
+  COUNT (*)
+    OVER ()
+      AS count_all_products
+FROM
+  product_info
+WHERE Inverntory_date <= '2024-01-01'
+ORDER BY Product_name
+```
+
 
 While for a simple task, window function and subquery are both can be used, subquery will become complicated as the task gets more 
 
