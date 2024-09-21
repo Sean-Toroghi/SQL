@@ -178,7 +178,28 @@ In window function, ORDER BY clause performs task depending on the function:
 - For order agnsotic functions, _aggregate and frame offset_, the ORDER BY limits the row visible to the function.
 - For _rank, row offset, and distribution_ window functions, the ORDER BY defines how the function is evaluated.
 
+## Aggregate function in window function clause
 
+### Rank function
+For _RANK function_, ORDER BY caluse is mandatory and used to determine the basis for the rank. 
+
+```sql
+RANK Function ()
+  OVER (
+    [PARTITION BY expression]
+    ORDER BY expression
+      )
+```
+
+__RANK functions__:
+- `ROW_NUMBER`: assigns a number to each row in a partition. It increases monotonically, begining with one.
+- `NTILE`: segments a partition into equal size segments of size $n$ plus a segment of remining rows if less than $n$ rows remains for the last segment. It assigns a monotonically increasing number to each segment (called tile). 
+- `RANK`
+- `DENSE_RANK`
+
+### Distribution window functions
+
+### Distribution function
 
 [UP](#up)
 
