@@ -132,7 +132,7 @@ WHERE Inverntory_date <= '2024-01-01'
 ORDER BY Product_name
 ```
 
-## Window function: PARTITIN BY
+## Window function: PARTITIN BY in OVER clause
 This is the second filter option in the window function. This method divides the dtaset into parts and limits the function's visibility to rows a portions of dataset that satisfies the condition in PARTITION BY clause. 
 
 __Example__: given a dataset for an inventory, retrieve number of items in each category entered the enventory prior to '2024-01-01'. Here the aggregate function requires to be applied to each 'Product_category' seperately.
@@ -174,16 +174,58 @@ WHERE Inverntory_date <= '2024-01-01'
 ORDER BY p1.Product_name
 ```
  
-## Window function: ORDER BY clasue
+## Window function: ORDER BY in OVER clasue
 
 In window function, ORDER BY clause performs different tasks depending on the function:
 - For order agnsotic functions, _aggregate and frame offset_, the ORDER BY limits the row visible to the function.
 - For _rank, row offset, and distribution_ window functions, the ORDER BY defines how the function is evaluated.
 
-## Window function: Aggregate function  
+## Functions in Window function
 
-###  Aggregate function: Rank function
-For _RANK function_, ORDER BY caluse is mandatory and used to determine the basis for the rank. 
+### Functions: aggregate functions
+
+1. __Arithmatic__
+  - average
+  - count
+  - sum
+  - min/max 
+2. __Statistical__
+  - variance
+  - deciation
+  - ergression
+  - inverse ditribution
+  - hypothetical
+3. __Boolean__
+  - EVERY
+  - ANY
+  - SOME
+4. __Array aggregate__
+  - Support JSON and array formats.
+5. __Proprietary__
+  Such as 'bitwise' and 'approximate'
+
+
+### Aggregate functions: GROUP VS WINDOW 
+
+__GROUP aggregate function__
+- can be used in HAVING, SELECT, and ORDER BY
+- aggregate function sees all rows within each groups, separately. Meaning they cannot see any rows in groups other than the on it is processing at each time.
+- aggregate function is defubed by GROUP BY
+- In GROUP BY, the following steps are perform by SQL to deliver the results:
+  1. FROM clause gets all rows from specified table/s, and send them to GROUP BY
+  2. GROUP BY marks rows by the specified expression, and send them to SELECT
+  3. SELECT evaluates its expressions per row group. The valid options are either values that are equal for all rows in a group, or using aggregate function to get a single  value for each group
+
+__WINDOW aggregate function__
+- can be used in SELECT and ORDER BY
+- aggregate function is defined by OVER calsue
+- aggregate function only sees row/rows that are defined by the window specification.
+
+
+
+##  Function: Rank function
+
+For _RANK function_, ORDER BY caluse is mandatory and used to determine the basis for the rank. _PARTITION BY_ is optional for rank functions.
 
 ```sql
 RANK Function ()
@@ -193,15 +235,20 @@ RANK Function ()
       )
 ```
 
-__RANK functions__:
+List of rank functions:
 - `ROW_NUMBER`: assigns a number to each row in a partition. It increases monotonically, begining with one.
+
+  Example: show top 3 product categories that have the largest number of purchases, including categories wuth less than 3 different product types.
+
+  ```sql
+  ```
+  
 - `NTILE`: segments a partition into equal size segments of size $n$ plus a segment of remining rows if less than $n$ rows remains for the last segment. It assigns a monotonically increasing number to each segment (called tile). 
 - `RANK`
 - `DENSE_RANK`
 
-### Distribution window functions
 
-### Distribution function
+## Function: offset functions
 
 [UP](#up)
 
