@@ -241,6 +241,26 @@ List of rank functions:
   Example: show top 3 product categories that have the largest number of purchases, including categories wuth less than 3 different product types.
 
   ```sql
+  WITH product_purchases AS (
+                            SELECT i.category, s_.product_name, COUNT (s.purrchase_date) AS count_purchase
+                              FROM inventory AS i
+                                LEFT OUTER JOIN sale_log AS s
+                                  ON i.category = s.category
+                              GROUP BY i.category, s.product_name
+                            )
+  , row_number_by_purchase_count AS (
+          SELECT *,
+                  ROW_NUMBER()
+                  OVER( PARTITION BY category
+                        ORDER BY count_purchase, product_name ASC
+                      ) AS row_number
+          FROM product_purchase
+          )
+  SELECT *
+    FROM row_number_by_purchase_count
+    WHERE row_number <= 3
+  ORDER BY category ASC,
+           count_purchase DESC;
   ```
   
 - `NTILE`: segments a partition into equal size segments of size $n$ plus a segment of remining rows if less than $n$ rows remains for the last segment. It assigns a monotonically increasing number to each segment (called tile). 
