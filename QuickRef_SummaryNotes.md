@@ -27,6 +27,8 @@ Every SQL query is processed in the following order:
 6. `ORDER BY` clause sorts the dataset and transforms it to a cursor.
 7. `OFFSET FETCH` (`LIMIT FETCH`) processes the cursor and slice it according to the provided information. 
 
+---
+
 # <a name = 'window'>Window function</a>
 
 Expressions using window functions have access to values from other rows.
@@ -130,7 +132,7 @@ WHERE Inverntory_date <= '2024-01-01'
 ORDER BY Product_name
 ```
 
-## PARTITIN BY
+## Window function: PARTITIN BY
 This is the second filter option in the window function. This method divides the dtaset into parts and limits the function's visibility to rows a portions of dataset that satisfies the condition in PARTITION BY clause. 
 
 __Example__: given a dataset for an inventory, retrieve number of items in each category entered the enventory prior to '2024-01-01'. Here the aggregate function requires to be applied to each 'Product_category' seperately.
@@ -172,15 +174,15 @@ WHERE Inverntory_date <= '2024-01-01'
 ORDER BY p1.Product_name
 ```
  
-## ORDER BY clasue
+## Window function: ORDER BY clasue
 
-In window function, ORDER BY clause performs task depending on the function:
+In window function, ORDER BY clause performs different tasks depending on the function:
 - For order agnsotic functions, _aggregate and frame offset_, the ORDER BY limits the row visible to the function.
 - For _rank, row offset, and distribution_ window functions, the ORDER BY defines how the function is evaluated.
 
-## Aggregate function in window function clause
+## Window function: Aggregate function  
 
-### Rank function
+###  Aggregate function: Rank function
 For _RANK function_, ORDER BY caluse is mandatory and used to determine the basis for the rank. 
 
 ```sql
