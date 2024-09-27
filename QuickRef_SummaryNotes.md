@@ -185,24 +185,24 @@ In window function, ORDER BY clause performs different tasks depending on the fu
 ### Functions: aggregate functions
 
 1. __Arithmatic__
-  - average
-  - count
-  - sum
-  - min/max 
+    - average
+    - count
+    - sum
+    - min/max 
 2. __Statistical__
-  - variance
-  - deciation
-  - ergression
-  - inverse ditribution
-  - hypothetical
+    - variance
+    - deciation
+    - ergression
+    - inverse ditribution
+    - hypothetical
 3. __Boolean__
-  - EVERY
-  - ANY
-  - SOME
+    - EVERY
+    - ANY
+    - SOME
 4. __Array aggregate__
-  - Support JSON and array formats.
+    - Support JSON and array formats.
 5. __Proprietary__
-  Such as 'bitwise' and 'approximate'
+    Such as 'bitwise' and 'approximate'
 
 
 ### Aggregate functions: GROUP VS WINDOW 
