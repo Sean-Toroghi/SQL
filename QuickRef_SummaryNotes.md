@@ -225,7 +225,7 @@ __WINDOW aggregate function__
 
 ##  Function: Rank function
 
-For _RANK function_, ORDER BY caluse is mandatory and used to determine the basis for the rank. _PARTITION BY_ is optional for rank functions.
+For _RANK functions_, ORDER BY caluse is mandatory and used to determine the basis for the rank. _PARTITION BY_ is optional for rank functions.
 
 ```sql
 RANK Function ()
@@ -236,8 +236,14 @@ RANK Function ()
 ```
 
 List of rank functions:
-- `ROW_NUMBER`: assigns a number to each row in a partition. It increases monotonically, begining with one.
-
+- `ROW_NUMBER`: assigns a number to each row in a partition. It increases monotonically, begining with one. One of classical use of _ROW_NUMBER_ is top per group retrieve task.
+  ```sql
+  ROW_NUMBER ()
+    OVER( [PARTITION BY expression]
+          ORDER BY expression
+        )
+  ```
+  
   Example: show top 3 product categories that have the largest number of purchases, including categories wuth less than 3 different product types.
 
   ```sql
@@ -263,7 +269,15 @@ List of rank functions:
            count_purchase DESC;
   ```
   
-- `NTILE`: segments a partition into equal size segments of size $n$ plus a segment of remining rows if less than $n$ rows remains for the last segment. It assigns a monotonically increasing number to each segment (called tile). 
+- `NTILE`: segments a partition into equal size segments of size $n$ plus a segment of remining rows if less than $n$ rows remains for the last segment. It assigns a monotonically increasing number to each segment (called tile).
+  
+  ```sql
+  NTILE (n)
+    OVER( [PARTITION BY expression]
+          ORDER BY expression
+        )
+  ```
+  
 - `RANK`
 - `DENSE_RANK`
 
