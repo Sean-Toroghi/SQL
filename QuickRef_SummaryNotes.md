@@ -291,7 +291,6 @@ List of rank functions:
 
 --- <br>
 
-# <a name = 'rad'>Logical process order in SQL</a>
 
 
 
