@@ -1,10 +1,7 @@
 # Common table expression - Examples
 
-## Example 1. Given 4 tables (Categories, Suppliers, Products, and Orders) identify suppliers who provide products with a unit price above the average unit price across all products. Retrieve the supplier name and the number of such high-value products they supply.
+## Example 1. Given 4 tables (Categories, Suppliers, Products, and Orders), identify suppliers who provide products with a unit price above the average unit price across all products. Retrieve the supplier name and the number of such high-value products they supply.
 
-# Common table expression - Examples
-
-## Example 1. identify suppliers who provide products with a unit price above the average unit price across all products. Retrieve the supplier name and the number of such high-value products they supply.
 
 ```sql
 --- 1. overview of dataset
@@ -53,5 +50,8 @@ WHERE UnitPrice > avg_unit_price
 ```
 
 ---
+
+## Example 2. Given 4 tables (Categories, Suppliers, Products, and Orders), identify products with a stock quantity below a specified threshold, 50 units. Then, retrieve the product name, category name, and the remaining stock quantity.
+
 
 
