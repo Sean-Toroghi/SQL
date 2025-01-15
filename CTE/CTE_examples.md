@@ -51,7 +51,7 @@ WHERE UnitPrice > avg_unit_price
 
 ---
 
-## Example 2. Given 4 tables (Categories, Suppliers, Products, and Orders), identify products with a stock quantity below a specified threshold, 50 units. Then, retrieve the product name, category name, and the remaining stock quantity.
+## Example 2. Given 4 tables (Categories, Suppliers, Products, and Orders), identify products with a stock quantity below a specified threshold, 50 units. Also, retrieve the product name, category name, and the remaining stock quantity.
 
 
 
