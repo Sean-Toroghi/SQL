@@ -4,6 +4,7 @@
 - [SQL logical process order in SQL](#logicorder)
 - [Windows fucntion](#window)
 - [Retrive/analyze data](#rad)
+- [Date-Time manipulation](#date)
 
 
 
@@ -292,6 +293,15 @@ List of rank functions:
 
 # <a name = 'rad'>Logical process order in SQL</a>
 
+
+
+[UP](#up)
+
+---
+
+# <a name = 'date'>Date - time manipulationL</a>
+
+SQL is enhanced with date operators to manipulate date and time, either in the form of extracting date ad time fetures (day, week, month, year) or calculating the difference betwen two dates. some of these opertators are: `CURDATE(), DATEDIFF(), YEAR(), MONTH(), DAY()`, and `DATEFORMAT()`. 
 
 
 [UP](#up)
