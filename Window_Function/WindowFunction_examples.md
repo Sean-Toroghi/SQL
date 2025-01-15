@@ -40,12 +40,12 @@ SELECT *,
     FROM Orders
 
 --- 3. add difference of quantity of current and previous order    
-WITH quanity_lag AS 
+WITH quantity_lag AS 
     (SELECT *,
     LAG(Quantity, 1) OVER (PARTITION BY CustomerID ORDER BY OrderDate) as Previous_quantity
     FROM Orders)
 SELECT *,
     (Quantity - Previous_quantity) as Difference_quantity
-    FROM quanity_lag
+    FROM quantity_lag
 ```
 
