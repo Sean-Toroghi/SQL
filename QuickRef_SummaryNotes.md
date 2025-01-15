@@ -9,8 +9,11 @@
 
 
 
-
-
+Resources
+- [link 1](https://mode.com/sql-tutorial)
+- [link 2](https://www.w3schools.com/sql/sql_case.asp)
+- [link 3](https://www.techonthenet.com/sql/index.php)
+- [Book: SQL Query Design Patterns and Best Practices](https://learning.oreilly.com/library/view/sql-query-design/9781837633289/)
 
 
 --- 
