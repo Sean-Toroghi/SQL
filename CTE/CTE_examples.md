@@ -54,6 +54,7 @@ WHERE UnitPrice > avg_unit_price
 ## Example 2. Given 4 tables (Categories, Suppliers, Products, and Orders), identify products with a stock quantity below a specified threshold, 50 units. Also, retrieve the product name, category name, and the remaining stock quantity.
 
 ```sql
+
  --- 1. overview of dataset
 SELECT *
 FROM Categories
@@ -91,5 +92,23 @@ LEFT JOIN Categories as c
 LEFT JOIN Products as p
     ON p.ProductID = l.ProductID
 
+--- 4. summarize code
+WITH 
+    low_qty AS (
+        SELECT *
+        FROM Products
+        WHERE StockQuantity < 50
+        ),
+    low_stock_product AS (
+        SELECT p.ProductName, c.CategoryName, l.StockQuantity
+        FROM low_qty as l
+        LEFT JOIN Categories as c
+            ON l.CategoryID = c.CategoryID
+        LEFT JOIN Products as p
+            ON p.ProductID = l.ProductID
+    )
+
+SELECT *
+FROM low_stock_product
 ```
 
