@@ -47,6 +47,19 @@ FROM Products as p
 LEFT JOIN Suppliers as s
 ON p.SupplierID = s.SupplierID
 WHERE UnitPrice > avg_unit_price
+
+--- 5. simplified
+WITH avg_unit_price_tbl AS (
+    SELECT AVG(UnitPrice) as Average_unit_price
+    FROM Products
+)
+
+SELECT Distinct(s.SupplierName), MAX(p.UnitPrice), MIN(p.UnitPrice), a.Average_unit_price  
+FROM Products as p, avg_unit_price_tbl as a
+LEFT JOIN Suppliers as s
+    ON p.SupplierID = s.SupplierID
+WHERE p.UnitPrice > a.Average_unit_price 
+
 ```
 
 ---
@@ -92,7 +105,7 @@ LEFT JOIN Categories as c
 LEFT JOIN Products as p
     ON p.ProductID = l.ProductID
 
---- 4. summarize code
+--- 4. simplified
 WITH 
     low_qty AS (
         SELECT *
