@@ -1,9 +1,13 @@
 <h1> SQL quick reference</h1>
 
 <a name = 'up'>Table of contents</a>
+
 __General__
+
 - [SQL logical process order in SQL](#logicorder)
+
 __Specific__
+
 - [Windows fucntion](#window)
 - [Retrive/analyze data](#rad)
 - [Date-Time manipulation](#date)
@@ -23,14 +27,8 @@ Resources
 
 <br>
 ## <a name = 'logicorder'>Logical process order in SQL</a>
-Every SQL query is processed in the following order:
-1. `FROM` clause  
-2. `WHERE` clause  
-3. `GROUP BY` clause 
-4. `HAVING` clause  
-5. `SELECT` clause 
-6. `ORDER BY` clause  
-7. `OFFSET FETCH` (`LIMIT FETCH`)  
+
+Every SQL query is processed in the following order: `FROM` clause  -> `WHERE` clause -> `GROUP BY` clause -> `HAVING` clause  ->  `SELECT` clause -> `ORDER BY` clause -> `OFFSET FETCH` (`LIMIT FETCH`)  
 
 ---
 
