@@ -4,7 +4,7 @@
 
 ---
 
-<a id= 'window'># Window Function<\a>
+# <a id= 'window'> Window Function<\a>
 
 [refernce](https://github.com/LinkedInLearning/practice-it-advanced-sql-4412219/tree/main)
 
@@ -61,7 +61,7 @@ SELECT *,
 
 
 ---
-<a id= 'date'># Date and time manopulation examples<\a>
+# <a id= 'date'> Date and time manopulation examples<\a>
 
 [source link(https://www.linkedin.com/learning/practice-it-advanced-sql/introduction-to-datetime-manipulation?resume=false&u=95231449)
 
