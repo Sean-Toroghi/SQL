@@ -2,11 +2,11 @@
 
 <a name = 'up'>Table of contents</a>
 
-__General__
+__General topics__
 
 - [SQL logical process order in SQL](#logicorder)
 
-__Specific__
+__Specific topics__
 
 - [Windows function](#window)
 - [Common table expression (CTE)](#cte)
@@ -25,7 +25,7 @@ Resources
 
 
 --- 
-# General
+# General topics
 
 <br>
 ## <a name = 'logicorder'>Logical process order in SQL</a>
@@ -33,7 +33,7 @@ Resources
 Every SQL query is processed in the following order: `FROM` -> `WHERE`   -> `GROUP BY`   -> `HAVING`    ->  `SELECT`   -> `ORDER BY`   -> `OFFSET FETCH` (`LIMIT FETCH`)  
 
 ---
-# Specific
+# Specific topics
 ---
 
 ## <a name = 'window'>Window function</a>
