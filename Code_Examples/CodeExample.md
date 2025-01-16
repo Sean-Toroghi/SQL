@@ -61,7 +61,7 @@ SELECT *,
 
 
 ---
-# <a id= 'date'> Date and time manopulation examples<\a>
+# <a id= 'date'> Date and time manopulation examples</a>
 
 [source link(https://www.linkedin.com/learning/practice-it-advanced-sql/introduction-to-datetime-manipulation?resume=false&u=95231449)
 
