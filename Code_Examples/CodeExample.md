@@ -3,7 +3,9 @@
 - [Date and time manipulation](#date)
 
 ---
+
 <a id= 'window'># Window Function<\a>
+
 [refernce](https://github.com/LinkedInLearning/practice-it-advanced-sql-4412219/tree/main)
 
 ---
