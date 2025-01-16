@@ -39,14 +39,11 @@ Every SQL query is processed in the following order:
 ## Quick summary
 Window function makes it possible to perform a query over a subset of database (window), while does not group the rows into a single row in the output.
 
-# Anatomy of window function
-
-## Overal format
 ```SQL
 [Window function] (oeprated_column) OVER ([PARTIOTION BY | ORDER BY] Grouping_column)
 ```
 
-## Window functions:
+__Function in Window function__
 Window function are categorized into three categories:
 1. Aggregation functions: `SUM(), AVG(), MIN(), MAX(), COUNT()`
 2. Ranking functions: `ROW_NUMBER(), RANK(), DENSE_RANK(), PERCENT_RANK(), NTILE()`
@@ -54,8 +51,6 @@ Window function are categorized into three categories:
 
 
 ## Overview
-
-
 
 Expressions using window functions have access to values from other rows.
 Without window functions, this can only be achieved via subqueries.
@@ -73,10 +68,12 @@ FILTER (WHERE predicatess)
         [EXCLUDE frame exclusion]
       )
 ```
+__Winodw function sections__:
+- __Function__
+- __FILTER__
 
-__Function__
 
-__FILTER__
+### Filter 
 
 Filter limits the scope that _function_ lookthrough over the provided _window_ with logical predicates. Here the FILTER performing only inside the _Window function_ and (unlike WHERE clasue) it has no effect on the syntax outside the window function.
 
@@ -95,7 +92,7 @@ It defines the window over the dataset, for the _function_ to be applied to.
 - ORDER BY clause in window function perform different task based on the function used. For some functions it is used to limit visibility and for other it define how to evaluate the function.
 
 
-## Window function vs sub-querry
+__Window function vs sub-querry__
 In many cases subquery and window function can be used interchagibly. Following examples show the use of the two methods, to perform the same task. The first example, just requires employ an aggregate function. The second example, adds a condition. With the subquery, we require to duplicate the predicatess (using it in both main and sub-queries). However, with window function, we can just use the condition on the main query.  This makes the window function much more efficient.
 
 __Example 1__: the goal is to add total number of product to the query. 
