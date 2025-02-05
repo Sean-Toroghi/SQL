@@ -7,9 +7,10 @@ __General topics__
 - [SQL logical process order in SQL](#logicorder)
 
 __Specific topics__
-
-- [Windows function](#window)
+- [Aggregation function](#agg)
 - [Common table expression (CTE)](#cte)
+- [Windows function](#window)
+
 - [Subquery](#subq)
 - [Retrive/analyze data](#rad)
 - [Date-Time manipulation](#date)
