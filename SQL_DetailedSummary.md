@@ -22,9 +22,25 @@ Every SQL query is processed in the following order:
 
 ---
 # <a name = 'CTE'>With-clause (Common table expression - CTE)</a>
-CTE is a temporary table created by a SELECT statement, which can then be used in the main SELECT statement. Main application of the CTE is to make the statement more readable and clear. In many cases we can employ a subquery or CTE, but the use of CTE is prefereable. 
+In a general form, we have two types of CTE: hierarchical CTE, and recurisve CTE. CTE could be used in the following statements:
+- SELECT
+- INSERT
+- UPDATE
+- DELETE
 
-CTE could be used in its simple form as a temporary table, or could be use in recusrive fashion to enable SQL to iterative processing and handle hierarchical data. Recursive CTE consists of following two parts, in which at the end the output of the two parts are combined via `UNION ALL`:
+__Hierarchical CTE__ (or CTE) is a temporary table created by a SELECT statement, which can then be used in the main SELECT statement. Main application of the CTE is to make the statement more readable and clear. In many cases we can employ a subquery or CTE, but the use of CTE is prefereable. 
+
+structure:
+```sql
+WITH name_of_CTE AS (
+  SELECT ...
+)
+
+SELECT ...
+FROM name_of_CTE
+```
+
+__Recursive CTE__: CTE could be used in its simple form as a temporary table, or could be use in recusrive fashion to enable SQL to iterative processing and handle hierarchical data. Recursive CTE consists of following two parts, in which at the end the output of the two parts are combined via `UNION ALL`:
 1. base case
 2. recursive part
 
