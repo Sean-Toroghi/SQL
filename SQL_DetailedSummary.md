@@ -2,6 +2,7 @@
 
 <a name = 'up'>Table of contents</a>
 - [SQL logical process order in SQL](#logicorder)
+- [With-clause (CTE)](#CTE)
 - [Windows fucntion](#window)
 - [Retrive/analyze data](#rad)
 - [Date-Time manipulation](#date)
@@ -16,4 +17,15 @@ Every SQL query is processed in the following order:
 4. `HAVING` clause employs its logical pradicates to filter the row groups. 
 5. `SELECT` clause recieves filtered rows and filtered row groups. `SELECT` evaluates each expression for every row or row group. The result is a dataset that is sent to the next precessing step.
 6. `ORDER BY` clause sorts the dataset and transforms it to a cursor.
-7. `OFFSET FETCH` (`LIMIT FETCH`) processes the cursor and slice it according to the provided information. 
+7. `OFFSET FETCH` (`LIMIT FETCH`) processes the cursor and slice it according to the provided information.
+
+
+---
+# <a name = 'CTE'>With-clause (Common table expression - CTE)</a>
+CTE is a temporary table created by a SELECT statement, which can then be used in the main SELECT statement. Main application of the CTE is to make the statement more readable and clear. In many cases we can employ a subquery or CTE, but the use of CTE is prefereable. 
+
+CTE could be used in its simple form as a temporary table, or could be use in recusrive fashion to enable SQL to iterative processing and handle hierarchical data. Recursive CTE consists of following two parts, in which at the end the output of the two parts are combined via `UNION ALL`:
+1. base case
+2. recursive part
+
+
