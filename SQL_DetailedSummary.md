@@ -63,4 +63,4 @@ SELECT ...
 FROM name_of_CTE
 ```
 
-
+:boom: __ALERT__: recursive CTE could be computationaly expensive, if it does not have a stopping point or if at each iteration it requires to explore additional  part of the dataset. 
