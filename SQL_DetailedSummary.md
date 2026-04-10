@@ -32,9 +32,13 @@ __Hierarchical CTE__ (or CTE) is a temporary table created by a SELECT statement
 
 STRUCTURE:
 ```sql
-WITH name_of_CTE AS (
+WITH name_of_CTE_11 AS (
   SELECT ...
-)
+  ),
+
+name_of_CTE_2 AS (
+  SELECT ...
+  )
 
 SELECT ...
 FROM name_of_CTE
