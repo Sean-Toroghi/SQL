@@ -4,6 +4,7 @@
 - [SQL logical process order in SQL](#logicorder)
 - [With-clause (CTE)](#CTE)
 - [Windows fucntion](#window)
+- [Optimizing SQL](#opt)
 - [Retrive/analyze data](#rad)
 - [Date-Time manipulation](#date)
 
@@ -64,3 +65,37 @@ FROM name_of_CTE
 ```
 
 :boom: __ALERT__: recursive CTE could be computationaly expensive, if it does not have a stopping point or if at each iteration it requires to explore additional  part of the dataset. 
+
+---
+# <a name = 'window'>Analytical function (Window function)</a>
+
+Window function perform analytical function on a row bases without collapsing the table (in the case of GROUP BY). The analytical function could be aggregate function, of comparison between the currect row and other rows.
+
+STRUCTURE:
+```sql
+SELECT ...,
+  function_name OVER (
+    PARTITION BY ...,
+    ORDER BY ...
+    ) AS auxilary_name
+FROM ...
+```
+
+__Functions in window function__ are divided into the following categories:
+- aggregation
+- ranking
+- offset
+- value
+- statistical
+
+
+---
+
+# <a name = 'opt'>Optimizing SQL syntax</a>
+As dataset grows, it is important to make sure the SQL syntax is optimized. While optimization of a SQL syntax could be done on both traditional RDBMS such as PostgreSQL and cloud-based ones such as Bigquery and Snowflake, they share similatiries and differences. In the following a list of strategies are provided to optimize a SQL syntax:
+1. indexing
+2. query planning
+3. caching, and using view
+4. cost-aware coding
+5. :bangbang:some mistakes to avoid:bangbang:
+
